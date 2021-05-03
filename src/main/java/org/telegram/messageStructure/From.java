@@ -1,3 +1,5 @@
+package org.telegram.messageStructure;
+
 import org.json.JSONObject;
 
 public class From {
@@ -39,5 +41,29 @@ public class From {
         } catch (org.json.JSONException exception) {
             language_code = "Unknown";
         }
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public boolean getIsBot() {
+        return is_bot;
+    }
+
+    public String getFirst_name() {
+        return first_name;
+    }
+
+    public String getLast_name() {
+        return last_name;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getLanguage_code() {
+        return language_code;
     }
 }

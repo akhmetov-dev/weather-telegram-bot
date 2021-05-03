@@ -1,3 +1,5 @@
+package org.telegram.messageStructure;
+
 import org.json.JSONObject;
 
 public class Chat {
@@ -33,5 +35,25 @@ public class Chat {
         } catch (org.json.JSONException exception) {
             type = "Unknown";
         }
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getFirst_name() {
+        return first_name;
+    }
+
+    public String getLast_name() {
+        return last_name;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getType() {
+        return type;
     }
 }

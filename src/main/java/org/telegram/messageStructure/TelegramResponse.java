@@ -1,3 +1,5 @@
+package org.telegram.messageStructure;
+
 import org.json.JSONObject;
 
 public class TelegramResponse {
@@ -21,5 +23,13 @@ public class TelegramResponse {
         } catch (org.json.JSONException exception) {
             System.out.println("There is no result field in response.");
         }
+    }
+
+    public Result getResult() {
+        return  this.result;
+    }
+
+    public boolean getOk() {
+        return this.ok;
     }
 }

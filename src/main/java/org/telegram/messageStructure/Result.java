@@ -1,3 +1,5 @@
+package org.telegram.messageStructure;
+
 import org.json.JSONArray;
 
 public class Result {
@@ -11,5 +13,13 @@ public class Result {
             update_id = 0;
         }
         message = new Message(jsonArray.getJSONObject(0).getJSONObject("message"));
+    }
+
+    public int getUpdate_id() {
+        return update_id;
+    }
+
+    public Message getMessage() {
+        return message;
     }
 }
