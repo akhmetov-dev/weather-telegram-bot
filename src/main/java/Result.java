@@ -5,7 +5,11 @@ public class Result {
     Message message;
 
     public Result(JSONArray jsonArray) {
-        update_id = jsonArray.getJSONObject(0).getInt("update_id");
+        try {
+            update_id = jsonArray.getJSONObject(0).getInt("update_id");
+        } catch (org.json.JSONException exception) {
+            update_id = 0;
+        }
         message = new Message(jsonArray.getJSONObject(0).getJSONObject("message"));
     }
 }

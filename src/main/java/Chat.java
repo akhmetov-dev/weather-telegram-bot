@@ -8,22 +8,30 @@ public class Chat {
     String type;
 
     public Chat(JSONObject jsonObject) {
-        id = jsonObject.getInt("id");
+        try {
+            id = jsonObject.getInt("id");
+        } catch (org.json.JSONException exception) {
+            id = 0;
+        }
         try {
             first_name = jsonObject.getString("first_name");
         } catch (org.json.JSONException exception) {
-            first_name = "";
+            first_name = "Unknown";
         }
         try {
             last_name = jsonObject.getString("last_name");
         } catch (org.json.JSONException exception) {
-            last_name = "";
+            last_name = "Unknown";
         }
         try {
             username = jsonObject.getString("username");
         } catch (org.json.JSONException exception) {
-            username = "";
+            username = "Unknown";
         }
-        type = jsonObject.getString("type");
+        try {
+            type = jsonObject.getString("type");
+        } catch (org.json.JSONException exception) {
+            type = "Unknown";
+        }
     }
 }

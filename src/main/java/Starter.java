@@ -9,15 +9,19 @@ public class Starter {
         String bot_token = reader.readLine();
 
         TelegramAPI telegramAPI = new TelegramAPI(bot_token);
-        TelegramResponse telegramResponse;
-        int message_id = 0;
+        TelegramResponse telegramResponse = new TelegramResponse(telegramAPI.getResponse());
+        int message_id = telegramResponse.result.message.message_id;
         while (true) {
             telegramResponse = new TelegramResponse(telegramAPI.getResponse());
             if (message_id != telegramResponse.result.message.message_id) {
                 message_id = telegramResponse.result.message.message_id;
-                System.out.println("From : " + telegramResponse.result.message.from.first_name);
-                System.out.println("Message : " + telegramResponse.result.message.text);
-                telegramAPI.sendMessage(telegramResponse.result.message.chat.id, telegramResponse.result.message.text);
+                if (telegramResponse.result.message.text.equalsIgnoreCase("погода")) {
+                    telegramAPI.sendMessage(telegramResponse.result.message.chat.id, "\uD83C\uDF1E Погодка нынче хорошая");
+                } else if (telegramResponse.result.message.text.equalsIgnoreCase("настройки")) {
+                    telegramAPI.sendMessage(telegramResponse.result.message.chat.id, "Скоро добавим и настроечки!");
+                } else {
+                    telegramAPI.sendMessage(telegramResponse.result.message.chat.id, "\uD83D\uDE11 Я тебя не понимаю...");
+                }
             }
             Thread.sleep(100);
         }

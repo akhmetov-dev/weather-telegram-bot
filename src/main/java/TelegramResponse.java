@@ -6,8 +6,20 @@ public class TelegramResponse {
     Result result;
 
     public TelegramResponse(String jsonResponse) {
-        jsonObject = new JSONObject(jsonResponse);
-        ok = jsonObject.getBoolean("ok");
-        result = new Result(jsonObject.getJSONArray("result"));
+        try {
+            jsonObject = new JSONObject(jsonResponse);
+        } catch (org.json.JSONException exception) {
+            System.out.println("Bad json error");
+        }
+        try {
+            ok = jsonObject.getBoolean("ok");
+        } catch (org.json.JSONException exception) {
+            ok = false;
+        }
+        try {
+            result = new Result(jsonObject.getJSONArray("result"));
+        } catch (org.json.JSONException exception) {
+            System.out.println("There is no result field in response.");
+        }
     }
 }

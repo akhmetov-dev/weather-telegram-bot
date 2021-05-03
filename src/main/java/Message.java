@@ -8,10 +8,24 @@ public class Message {
     String text;
 
     public Message(JSONObject jsonObject) {
-        message_id = jsonObject.getInt("message_id");
+
+        try {
+            message_id = jsonObject.getInt("message_id");
+        } catch (org.json.JSONException exception) {
+            message_id = 0;
+        }
         from = new From(jsonObject.getJSONObject("from"));
         chat = new Chat(jsonObject.getJSONObject("chat"));
-        date = jsonObject.getInt("date");
-        text = jsonObject.getString("text");
+        try {
+            date = jsonObject.getInt("date");
+        } catch (org.json.JSONException exception) {
+            date = 0;
+        }
+        try {
+            text = jsonObject.getString("text");
+        } catch (org.json.JSONException exception) {
+            text = "Unknown";
+        }
+
     }
 }
