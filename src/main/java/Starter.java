@@ -1,5 +1,8 @@
+import org.PhraseGenerator;
+import org.telegram.API.TelegramAPI;
 import org.telegram.messageStructure.TelegramResponse;
 
+import javax.crypto.Cipher;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -13,16 +16,27 @@ public class Starter {
         TelegramAPI telegramAPI = new TelegramAPI(bot_token);
         TelegramResponse telegramResponse = new TelegramResponse(telegramAPI.getResponse());
         int message_id = telegramResponse.getResult().getMessage().getMessage_id();
+
+        PhraseGenerator phraseGenerator = new PhraseGenerator();
+
         while (true) {
             telegramResponse = new TelegramResponse(telegramAPI.getResponse());
             if (message_id != telegramResponse.getResult().getMessage().getMessage_id()) {
                 message_id = telegramResponse.getResult().getMessage().getMessage_id();
+
+                telegramAPI.sendMessage(telegramResponse.getResult().getMessage().getChat().getId(), phraseGenerator.Greetings());
+
                 if (telegramResponse.getResult().getMessage().getText().equalsIgnoreCase("погода")) {
-                    telegramAPI.sendMessage(telegramResponse.getResult().getMessage().getChat().getId(), "\uD83C\uDF1E Погодка нынче хорошая");
+                    telegramAPI.sendMessage(telegramResponse.getResult().getMessage().getChat().getId(),
+                            "\uD83C\uDF1E Погодка нынче хорошая");
+
                 } else if (telegramResponse.getResult().getMessage().getText().equalsIgnoreCase("настройки")) {
-                    telegramAPI.sendMessage(telegramResponse.getResult().getMessage().getChat().getId(), "Скоро добавим и настроечки!");
+                    telegramAPI.sendMessage(telegramResponse.getResult().getMessage().getChat().getId(),
+                            "Скоро добавим и настроечки!");
+
                 } else {
-                    telegramAPI.sendMessage(telegramResponse.getResult().getMessage().getChat().getId(), "\uD83D\uDE11 Я тебя не понимаю...");
+                    telegramAPI.sendMessage(telegramResponse.getResult().getMessage().getChat().getId(),
+                            "\uD83D\uDE11 Я тебя не понимаю...");
                 }
             }
             Thread.sleep(100);

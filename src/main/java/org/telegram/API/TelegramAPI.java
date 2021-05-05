@@ -1,3 +1,5 @@
+package org.telegram.API;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -47,14 +49,16 @@ public class TelegramAPI {
         return stringBuilder.toString();
     }
 
-    public void sendMessage(int chat_id, String text) throws IOException {
+    public String sendMessage(int chat_id, String text) throws IOException {
         JSONObject jsonObject = new JSONObject();
         String url = "https://api.telegram.org/bot" + bot_token + "/" + "sendMessage";
 
-        jsonObject.put("chat_id", chat_id).put("text", text)
+        /*jsonObject.put("chat_id", chat_id).put("text", text)
                 .put("resize_keyboard", true).put("one_time_keyboard", true)
                 .put("reply_markup", new JSONObject().put("keyboard", new JSONArray()
-                        .put(new JSONArray().put("Погода").put("Настройки"))));
+                        .put(new JSONArray().put("Погода").put("Настройки"))));*/
+        jsonObject.put("chat_id", chat_id).put("text", text).put("reply_markup", new JSONObject().put("keyboard", new JSONArray()
+                .put(new JSONArray().put("Погода").put("Настройки"))).put("resize_keyboard", true).put("one_time_keyboard", true));
 
         System.out.println(jsonObject);
 
@@ -67,6 +71,7 @@ public class TelegramAPI {
         httpsURLConnection.setDoOutput(true);
 
         try(OutputStream os = httpsURLConnection.getOutputStream()) {
+//            byte[] input = jsonObject.toString().getBytes(StandardCharsets.UTF_8);
             byte[] input = jsonObject.toString().getBytes(StandardCharsets.UTF_8);
             os.write(input, 0, input.length);
         }
@@ -80,5 +85,6 @@ public class TelegramAPI {
             stringBuilder.append(line);
         }
         inputStream.close();
+        return stringBuilder.toString();
     }
 }
