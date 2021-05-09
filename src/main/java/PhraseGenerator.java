@@ -1,7 +1,7 @@
 public class PhraseGenerator {
-    private final String[] greetings = {"Привет!\n", "Добрый день!\n", "Здравствуй, друг!\n",
-            "Приветствую!\n", "Хорошего дня!\n", "Давно не виделись!\n"};
+    private final String[] greetings = {"Привет!", "Добрый день!", "Здравствуй, друг!",
+            "Приветствую!", "Хорошего дня!", "Давно не виделись!"};
     public String Greetings() {
-        return greetings[(int)(Math.random() * 5)];
+        return greetings[(int)(Math.random() * 6)];
     }
 }

@@ -42,7 +42,7 @@ public class Starter {
             if (message_id != telegramResponse.getResult().getMessage().getMessage_id()) {                              // Пришло новое сообщение
 
                 message_id = telegramResponse.getResult().getMessage().getMessage_id();
-                telegramAPI.sendMessage(telegramResponse.getResult().getMessage().getChat().getId(), phraseGenerator.Greetings());
+                telegramAPI.sendMessage(telegramResponse.getResult().getMessage().getChat().getId(), phraseGenerator.Greetings() + "\n");
 
                 if (telegramResponse.getResult().getMessage().getText().equalsIgnoreCase("погода")) {
 
