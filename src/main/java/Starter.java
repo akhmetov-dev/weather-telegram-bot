@@ -1,39 +1,67 @@
-import org.PhraseGenerator;
+import org.openweathermap.API.OpenWeatherMapAPI;
+import org.openweathermap.messageStructure.OpenWeatherMapResponse;
 import org.telegram.API.TelegramAPI;
 import org.telegram.messageStructure.TelegramResponse;
 
-import javax.crypto.Cipher;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 
 public class Starter {
     public static void main(String[] args) throws IOException, InterruptedException {
-        System.out.print("Input token_bot: ");
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String bot_token = reader.readLine();
+        String configString = null;
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("config.json"));
+            StringBuilder stringBuilder = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                stringBuilder.append(line);
+            }
+            reader.close();
+            configString = stringBuilder.toString();
+        } catch (FileNotFoundException exception) {
+            printFatalError("File config.json could not be read");
+            System.exit(0);
+        }
 
-        TelegramAPI telegramAPI = new TelegramAPI(bot_token);
-        TelegramResponse telegramResponse = new TelegramResponse(telegramAPI.getResponse());
+        ConfigReader configReader = new ConfigReader(configString);
+
+        TelegramAPI telegramAPI = new TelegramAPI(configReader.bot_token);
+
+        String response = telegramAPI.getResponse();
+
+        TelegramResponse telegramResponse = new TelegramResponse(response);
+
         int message_id = telegramResponse.getResult().getMessage().getMessage_id();
 
         PhraseGenerator phraseGenerator = new PhraseGenerator();
 
         while (true) {
-            telegramResponse = new TelegramResponse(telegramAPI.getResponse());
-            if (message_id != telegramResponse.getResult().getMessage().getMessage_id()) {
-                message_id = telegramResponse.getResult().getMessage().getMessage_id();
+            response = telegramAPI.getResponse();
 
+            telegramResponse = new TelegramResponse(response);
+
+            if (message_id != telegramResponse.getResult().getMessage().getMessage_id()) {                              // Пришло новое сообщение
+
+                message_id = telegramResponse.getResult().getMessage().getMessage_id();
                 telegramAPI.sendMessage(telegramResponse.getResult().getMessage().getChat().getId(), phraseGenerator.Greetings());
 
                 if (telegramResponse.getResult().getMessage().getText().equalsIgnoreCase("погода")) {
-                    telegramAPI.sendMessage(telegramResponse.getResult().getMessage().getChat().getId(),
-                            "\uD83C\uDF1E Погодка нынче хорошая");
+
+                    OpenWeatherMapAPI openWeatherMapAPI = new OpenWeatherMapAPI(configReader.open_weather_map_api_key);
+                    OpenWeatherMapResponse openWeatherMapResponse = new OpenWeatherMapResponse(openWeatherMapAPI.getWeatherInfo());
+//                    TODO: переводчик английского на русский
+                    StringBuilder message = new StringBuilder();
+                    message.append("\uD83C\uDF06 Город: " + "Москва" + "\n");
+                    message.append("\uD83C\uDF21 Температура: " + String.format("%.2f", (openWeatherMapResponse.getMain().getTemp() - 273.15)) + " °C" + "\n");
+                    message.append("\uD83C\uDF21 Чувствуется как: " + String.format("%.2f", (openWeatherMapResponse.getMain().getFeels_like()) - 273.15) + " °C" + "\n");
+                    message.append("Давление: " + openWeatherMapResponse.getMain().getPressure() + " ГПа" + "\n");
+                    message.append("\uD83D\uDCA8 Скорость ветра: " + openWeatherMapResponse.getWind().getSpeed() + " м/с" + "\n");
+                    message.append("\uD83D\uDCA6 Влажность: " + openWeatherMapResponse.getMain().getHumidity() + " %" + "\n");
+
+                    telegramAPI.sendMessage(telegramResponse.getResult().getMessage().getChat().getId(), message.toString());
 
                 } else if (telegramResponse.getResult().getMessage().getText().equalsIgnoreCase("настройки")) {
                     telegramAPI.sendMessage(telegramResponse.getResult().getMessage().getChat().getId(),
                             "Скоро добавим и настроечки!");
-
                 } else {
                     telegramAPI.sendMessage(telegramResponse.getResult().getMessage().getChat().getId(),
                             "\uD83D\uDE11 Я тебя не понимаю...");
@@ -41,5 +69,8 @@ public class Starter {
             }
             Thread.sleep(100);
         }
+    }
+    public static void printFatalError(String message) {
+        System.out.println("FATAL" + message);
     }
 }
