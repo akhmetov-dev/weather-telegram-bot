@@ -4,7 +4,6 @@ import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 
 public class OpenWeatherMapAPI {
     String open_weather_map_api_key;

@@ -10,9 +10,9 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 public class TelegramAPI {
-    String bot_token;
-    URL url;
-    String method_name;
+    private String bot_token;
+    private URL url;
+    private String method_name;
 
     public TelegramAPI(String bot_token) {
 

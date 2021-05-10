@@ -3,11 +3,10 @@ package org.openweathermap.messageStructure;
 import org.json.JSONObject;
 
 public class Main {
-    float temp;
-
-    float feels_like;
-    int pressure;
-    int humidity;
+    private float temp;
+    private float feels_like;
+    private int pressure;
+    private int humidity;
 
     public Main(JSONObject main) {
         temp = main.getFloat("temp");

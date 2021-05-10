@@ -3,9 +3,9 @@ package org.telegram.messageStructure;
 import org.json.JSONObject;
 
 public class Chat {
-    int id;
-    String username;
-    String type;
+    private int id;
+    private String username;
+    private String type;
 
     public Chat(JSONObject jsonObject) {
 

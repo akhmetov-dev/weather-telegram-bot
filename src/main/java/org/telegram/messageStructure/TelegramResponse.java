@@ -4,9 +4,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class TelegramResponse {
-    JSONObject jsonObject;
-    boolean ok;
-    Result result;
+    private JSONObject jsonObject;
+    private boolean ok;
+    private Result result;
 
     public TelegramResponse(String jsonResponse) {
         try {

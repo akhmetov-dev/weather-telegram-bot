@@ -24,7 +24,7 @@ public class Starter {
 
         ConfigReader configReader = new ConfigReader(configString);
 
-        TelegramAPI telegramAPI = new TelegramAPI(configReader.bot_token);
+        TelegramAPI telegramAPI = new TelegramAPI(configReader.getBot_token());
 
         String response = telegramAPI.getResponse();
 
@@ -46,18 +46,18 @@ public class Starter {
 
                 if (telegramResponse.getResult().getMessage().getText().equalsIgnoreCase("погода")) {
 
-                    OpenWeatherMapAPI openWeatherMapAPI = new OpenWeatherMapAPI(configReader.open_weather_map_api_key);
+                    OpenWeatherMapAPI openWeatherMapAPI = new OpenWeatherMapAPI(configReader.getOpen_weather_map_api_key());
                     OpenWeatherMapResponse openWeatherMapResponse = new OpenWeatherMapResponse(openWeatherMapAPI.getWeatherInfo());
 //                    TODO: переводчик английского на русский
-                    StringBuilder message = new StringBuilder();
-                    message.append("\uD83C\uDF06 Город: " + "Москва" + "\n");
-                    message.append("\uD83C\uDF21 Температура: " + String.format("%.2f", (openWeatherMapResponse.getMain().getTemp() - 273.15)) + " °C" + "\n");
-                    message.append("\uD83C\uDF21 Чувствуется как: " + String.format("%.2f", (openWeatherMapResponse.getMain().getFeels_like()) - 273.15) + " °C" + "\n");
-                    message.append("Давление: " + openWeatherMapResponse.getMain().getPressure() + " ГПа" + "\n");
-                    message.append("\uD83D\uDCA8 Скорость ветра: " + openWeatherMapResponse.getWind().getSpeed() + " м/с" + "\n");
-                    message.append("\uD83D\uDCA6 Влажность: " + openWeatherMapResponse.getMain().getHumidity() + " %" + "\n");
 
-                    telegramAPI.sendMessage(telegramResponse.getResult().getMessage().getChat().getId(), message.toString());
+                    String message = "\uD83C\uDF06 Город: " + "Москва" + "\n" +
+                            "\uD83C\uDF21 Температура: " + String.format("%.2f", (openWeatherMapResponse.getMain().getTemp() - 273.15)) + " °C" + "\n" +
+                            "\uD83C\uDF21 Чувствуется как: " + String.format("%.2f", (openWeatherMapResponse.getMain().getFeels_like()) - 273.15) + " °C" + "\n" +
+                            "Давление: " + openWeatherMapResponse.getMain().getPressure() + " ГПа" + "\n" +
+                            "\uD83D\uDCA8 Скорость ветра: " + openWeatherMapResponse.getWind().getSpeed() + " м/с" + "\n" +
+                            "\uD83D\uDCA6 Влажность: " + openWeatherMapResponse.getMain().getHumidity() + " %" + "\n";
+
+                    telegramAPI.sendMessage(telegramResponse.getResult().getMessage().getChat().getId(), message);
 
                 } else if (telegramResponse.getResult().getMessage().getText().equalsIgnoreCase("настройки")) {
                     telegramAPI.sendMessage(telegramResponse.getResult().getMessage().getChat().getId(),

@@ -3,8 +3,8 @@ package org.telegram.messageStructure;
 import org.json.JSONObject;
 
 public class From {
-    int id;
-    String username;
+    private int id;
+    private String username;
 
     public From(JSONObject jsonObject) {
         id = jsonObject.getInt("id");

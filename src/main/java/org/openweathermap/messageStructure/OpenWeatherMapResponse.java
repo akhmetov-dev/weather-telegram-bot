@@ -3,10 +3,10 @@ package org.openweathermap.messageStructure;
 import org.json.*;
 
 public class OpenWeatherMapResponse {
-    Weather weather;
-    Main main;
-    String name;
-    Wind wind;
+    private Weather weather;
+    private Main main;
+    private String name;
+    private Wind wind;
 
     public OpenWeatherMapResponse(String message) {
         try {

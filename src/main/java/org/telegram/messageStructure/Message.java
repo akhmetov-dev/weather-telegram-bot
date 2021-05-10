@@ -3,11 +3,11 @@ package org.telegram.messageStructure;
 import org.json.JSONObject;
 
 public class Message {
-    int message_id;
-    From from;
-    Chat chat;
-    int date;
-    String text;
+    private int message_id;
+    private From from;
+    private Chat chat;
+    private int date;
+    private String text;
 
     public Message(JSONObject jsonObject) {
         message_id = jsonObject.getInt("message_id");
