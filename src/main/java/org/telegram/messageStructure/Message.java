@@ -2,11 +2,29 @@ package org.telegram.messageStructure;
 
 import org.json.JSONObject;
 
+/**
+ * Класс, представляющий тело ответа от telegram api
+ */
 public class Message {
+    /**
+     * Уникальный идентификатор сообщения
+     */
     private int message_id;
+    /**
+     * Объект, содержаний данные об отправителе
+     */
     private From from;
+    /**
+     * Объект, содержаний данные о чате
+     */
     private Chat chat;
+    /**
+     * Отправки/получения сообщения
+     */
     private int date;
+    /**
+     * Содержимое сообщения
+     */
     private String text;
 
     public Message(JSONObject jsonObject) {

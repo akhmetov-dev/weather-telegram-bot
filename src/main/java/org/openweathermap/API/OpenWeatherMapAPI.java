@@ -5,10 +5,24 @@ import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+* Данный класс - способ взаимодействия приложения с openweathermap API
+*
+*/
 public class OpenWeatherMapAPI {
+    /**
+     * содержит строчное представления ключа для работы с openweathermap API
+     */
     String open_weather_map_api_key;
+    /**
+     * URL-адрес для работы с openweathermap API
+     */
     URL url;
 
+    /**
+     * Конструктор, присвающий полю open_weather_map_api_key объекта класса OpenWeatherMapAPI ключ
+     * @param open_weather_map_api_key - строчное представления ключа для работы с openweathermap API
+     */
     public OpenWeatherMapAPI(String open_weather_map_api_key) {
         this.open_weather_map_api_key = open_weather_map_api_key;
         try {
@@ -19,6 +33,11 @@ public class OpenWeatherMapAPI {
         }
     }
 
+    /**
+     * Запрашивает текущую погоду
+     * @return строковое представление полученного JSON-ответа
+     * @throws IOException
+     */
     public String getWeatherInfo() throws IOException {
         HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
         httpsURLConnection.setRequestMethod("GET");

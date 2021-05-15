@@ -9,9 +9,22 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * Данный класс - способ взаимодействия приложения с telegram API
+ *
+ */
 public class TelegramAPI {
+    /**
+     * содержит строчное представления токена для работы с ботом с помощью telegram api
+     */
     private String bot_token;
+    /**
+     * URL-адрес для работы с openweathermap API
+     */
     private URL url;
+    /**
+     * название метода, передаваемого через GET-параметры для работы с telegram api (например, getUpdates)
+     */
     private String method_name;
 
     public TelegramAPI(String bot_token) {
@@ -26,6 +39,11 @@ public class TelegramAPI {
         }
     }
 
+    /**
+     * Запрашивает новые сообщения, которые пользователи отправляли боту
+     * ВАЖНО. Пришедшие сообщения хранятся в облаке telegram ровно сутки. После этого все данные удаляются и в ответе поле result будет пустым
+     * @return строковое представление полученного JSON-ответа
+     */
     public String getResponse() {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("offset", -1);
@@ -76,6 +94,13 @@ public class TelegramAPI {
         return stringBuilder.toString();
     }
 
+    /**
+     * Делает запрос к telegram api на отправку сообщения определенному пользователю
+     * @param chat_id id чата, в который нужно отправить сообщение
+     * @param text текст, который нужно отправить определенному пользователю
+     * @return строковое представление полученного JSON-ответа
+     * @throws IOException
+     */
     public String sendMessage(int chat_id, String text) throws IOException {
         JSONObject jsonObject = new JSONObject();
         String url = "https://api.telegram.org/bot" + bot_token + "/" + "sendMessage";
