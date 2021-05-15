@@ -34,7 +34,7 @@ public class Starter {
 
         PhraseGenerator phraseGenerator = new PhraseGenerator();
 
-        while (true) {
+        do {
             response = telegramAPI.getResponse();
 
             telegramResponse = new TelegramResponse(response);
@@ -68,7 +68,7 @@ public class Starter {
                 }
             }
             Thread.sleep(100);
-        }
+        } while (true);
     }
     public static void printFatalError(String message) {
         System.out.println("FATAL" + message);
