@@ -1,6 +1,6 @@
 #!/bin/bash
 
-docker container stop postgres
+docker container stop telegram_bot_postgres
 
 docker container ls -a
 

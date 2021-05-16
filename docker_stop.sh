@@ -1,8 +1,8 @@
 #!/bin/bash
 
-docker container stop postgres
+docker container stop telegram_bot_postgres
 
-docker container rm postgres
+docker container rm telegram_bot_postgres
 
 docker image rm postgres postgres:13
 

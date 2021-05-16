@@ -1,5 +1,5 @@
 #!/bin/bash
 
-docker container start postgres
+docker container start telegram_bot_postgres
 
 docker container ls -a

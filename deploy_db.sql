@@ -1,15 +1,28 @@
-create table Persons (
-	id bigserial primary key,
-	first_name char(20) not null,
-	last_name char(20) not null
+CREATE DOMAIN uint64 AS bigint CHECK(VALUE >= 0 AND VALUE <= 9223372036854775807);
+CREATE DOMAIN uint32 AS bigint CHECK(VALUE >= 0 AND VALUE <= 2147483647);
+CREATE DOMAIN uint16 AS bigint CHECK(VALUE >= 0 AND VALUE <= 32767);
+
+
+CREATE TABLE User_data (
+	user_id uint64 PRIMARY KEY,
+	user_first_name char(50),
+	user_last_name char (50),
+	username char(50) NOT NULL UNIQUE
 );
 
-insert into persons (first_name, last_name) values ('Dmitry', 'Zabelov');
-insert into persons (first_name, last_name) values ('Vasily', 'Fomenkov');
-insert into persons (first_name, last_name) values ('Artyom', 'Sherstyuk');
-insert into persons (first_name, last_name) values ('Kirill', 'Moskalyov');
-insert into persons (first_name, last_name) values ('Anna', 'Zaharova');
-insert into persons (first_name, last_name) values ('Vlasov', 'Dmitry');
-insert into persons (first_name, last_name) values ('Demid', 'Uzenkov');
-insert into persons (first_name, last_name) values ('David', 'Shagramanyan');
-insert into persons (first_name, last_name) values ('Gleb', 'Kochevoy');
+CREATE TABLE Messages (
+	user_id uint64 REFERENCES User_data (user_id),
+	message_unix_time uint32 NOT NULL,
+	message_text char(1024)
+);
+
+CREATE TABLE User_notifications (
+	user_id uint64 REFERENCES User_data (user_id),
+	user_unix_time uint32 NOT NULL
+);
+
+CREATE TABLE Weather (
+	weather_id uint64 PRIMARY KEY,
+	weather_city char(50),
+	weather_unix_time uint32 NOT NULL
+);
