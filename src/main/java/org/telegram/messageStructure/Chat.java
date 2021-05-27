@@ -9,7 +9,7 @@ public class Chat {
     /**
      * id чата
      */
-    private int id;
+    private long id;
     /**
      * Логин отправителя
      */
@@ -27,7 +27,7 @@ public class Chat {
 
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

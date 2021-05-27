@@ -18,7 +18,7 @@ public class Starter {
             reader.close();
             configString = stringBuilder.toString();
         } catch (FileNotFoundException exception) {
-            printFatalError("File config.json could not be read");
+            ColorPrinter.printFatalError("File config.json could not be read");
             System.exit(0);
         }
 
@@ -39,7 +39,7 @@ public class Starter {
 
             telegramResponse = new TelegramResponse(response);
 
-            if (message_id != telegramResponse.getResult().getMessage().getMessage_id()) {                              // Пришло новое сообщение
+            if (message_id != telegramResponse.getResult().getMessage().getMessage_id()) {
 
                 message_id = telegramResponse.getResult().getMessage().getMessage_id();
                 telegramAPI.sendMessage(telegramResponse.getResult().getMessage().getChat().getId(), phraseGenerator.Greetings() + "\n");
@@ -69,8 +69,5 @@ public class Starter {
             }
             Thread.sleep(100);
         } while (true);
-    }
-    public static void printFatalError(String message) {
-        System.out.println("FATAL" + message);
     }
 }

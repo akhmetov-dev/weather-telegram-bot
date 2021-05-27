@@ -1,6 +1,6 @@
 CREATE DOMAIN uint64 AS bigint CHECK(VALUE >= 0 AND VALUE <= 9223372036854775807);
-CREATE DOMAIN uint32 AS bigint CHECK(VALUE >= 0 AND VALUE <= 2147483647);
-CREATE DOMAIN uint16 AS bigint CHECK(VALUE >= 0 AND VALUE <= 32767);
+CREATE DOMAIN uint32 AS integer CHECK(VALUE >= 0 AND VALUE <= 2147483647);
+CREATE DOMAIN uint16 AS smallint CHECK(VALUE >= 0 AND VALUE <= 32767);
 
 
 CREATE TABLE User_data (
@@ -11,13 +11,13 @@ CREATE TABLE User_data (
 );
 
 CREATE TABLE Messages (
-	user_id uint64 REFERENCES User_data (user_id),
+	user_id uint64 REFERENCES User_data (user_id) ON DELETE CASCADE,
 	message_unix_time uint32 NOT NULL,
 	message_text char(1024)
 );
 
 CREATE TABLE User_notifications (
-	user_id uint64 REFERENCES User_data (user_id),
+	user_id uint64 REFERENCES User_data (user_id) ON DELETE CASCADE,
 	user_unix_time uint32 NOT NULL
 );
 

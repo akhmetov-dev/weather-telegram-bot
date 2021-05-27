@@ -9,7 +9,7 @@ public class From {
     /**
      * id отправителя
      */
-    private int id;
+    private long id;
     /**
      * Логин отправителя
      */
@@ -20,7 +20,7 @@ public class From {
         username = jsonObject.getString("username");
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

@@ -101,7 +101,7 @@ public class TelegramAPI {
      * @return строковое представление полученного JSON-ответа
      * @throws IOException
      */
-    public String sendMessage(int chat_id, String text) throws IOException {
+    public String sendMessage(long chat_id, String text) throws IOException {
         JSONObject jsonObject = new JSONObject();
         String url = "https://api.telegram.org/bot" + bot_token + "/" + "sendMessage";
         jsonObject.put("chat_id", chat_id).put("text", text).put("reply_markup", new JSONObject().put("keyboard", new JSONArray()
