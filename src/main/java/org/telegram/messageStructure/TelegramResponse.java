@@ -24,10 +24,14 @@ public class TelegramResponse {
         try {
             jsonObject = new JSONObject(jsonResponse);
             ok = jsonObject.getBoolean("ok");
+        } catch (JSONException exception) {
+            System.out.println("FATAL: JSON string is invalid");
+            System.exit(0);
+        }
+        try {
             result = new Result(jsonObject.getJSONArray("result"));
         } catch (JSONException exception) {
-            System.out.println("FATAL: telegram response json string is invalid");
-            System.exit(0);
+            result = null;
         }
     }
 

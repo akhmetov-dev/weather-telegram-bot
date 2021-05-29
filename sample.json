@@ -1,0 +1,7 @@
+{
+  "bot_token": "qwerty1",
+  "open_weather_map_api_key": "uiop2",
+  "postgres_url": "jdbc:postgresql://localhost:5432/postgres",
+  "postgres_user": "postgres",
+  "postgres_pass": "asdfg3"
+}
